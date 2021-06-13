@@ -5,13 +5,22 @@
 
 #include "Source.h"
 
+#define PROFILE 1
+#if PROFILE 1
+#define PROFILE_SCOPE(name) InstrumentationTimer timer##__LINE__(name);
+#define PROFILE_FUNC() PROFILE_SCOPE(__FUNCSIG__)
+#else
+#define PROFILE_FUNC() 
+#endif // PROFILE_FUNC 1
+
+
+
 void Func_1();
 void Func_2();
 
 void RunBenchmarks() 
 {
-	InstrumentationTimer timer("Benchmark");
-
+	PROFILE_FUNC();
 	Func_1();
 	Func_2();
 }
